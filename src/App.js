@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Navbar from './components/Navbar'
+import Posts from './pages/Posts';
 
 function Home() {
   return (
@@ -19,14 +20,6 @@ function About() {
   return (
     <h1>
       About
-    </h1>
-  )
-}
-
-function Posts() {
-  return (
-    <h1>
-      Posts
     </h1>
   )
 }
