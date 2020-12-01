@@ -38,7 +38,7 @@ export default function Navbar() {
       </h1>
       <NavList>
         <NavListItem>
-          <StyledLink to="/post">
+          <StyledLink to="/posts">
             文章列表
           </StyledLink>
         </NavListItem>

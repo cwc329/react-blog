@@ -1,12 +1,11 @@
 import {
   HashRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import './App.css';
 import Navbar from './components/Navbar'
-import Posts from './pages/Posts';
+import PostsRouter from './pages/Posts';
 
 function Home() {
   return (
@@ -32,11 +31,11 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/login">
+        <Route path="/login">
           <About />
         </Route>
-        <Route exact path="/post">
-          <Posts />
+        <Route path="/posts">
+          <PostsRouter />
         </Route>
       </Switch>
     </Router>

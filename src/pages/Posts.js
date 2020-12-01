@@ -1,20 +1,36 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import queryString from 'query-string';
+import {
+  Switch,
+  Route,
+  useParams,
+  useRouteMatch,
+  useLocation
+} from 'react-router-dom'
 import { getPosts } from '../WebAPI';
 
 
-export default function Posts() {
-  const queryParams = queryString.parse(window.location.hash);
-  console.log(queryParams);
-  const requestParams = {}
-  const [posts, setPosts] = useState(queryParams);
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+export default function PostsRouter() {
+  let { url, path } = useRouteMatch();
+  let query = useQuery();
+  let page = query.get('page');
+  console.log({ page, url, path });
+  const [posts, setPosts] = useState();
   useEffect(() => {
     console.log(posts);
   }, [posts]);
   return (
-    <h1>
-      Posts
-    </h1>
+    <Switch>
+      <Route exact path={path}>
+        Posts root
+      </Route>
+      <Route path={`${path}/:id`}>
+        Posts params
+      </Route>
+    </Switch>
   )
 }
