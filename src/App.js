@@ -5,23 +5,10 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Navbar from './components/Navbar'
-import PostsRouter from './pages/Posts';
-
-function Home() {
-  return (
-    <h1>
-      Home
-    </h1>
-  )
-}
-
-function About() {
-  return (
-    <h1>
-      About
-    </h1>
-  )
-}
+import Posts from './pages/Posts';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -32,10 +19,16 @@ function App() {
           <Home />
         </Route>
         <Route path="/login">
-          <About />
+          <Login />
         </Route>
         <Route path="/posts">
-          <PostsRouter />
+          <Posts />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="addPost">
+
         </Route>
       </Switch>
     </Router>

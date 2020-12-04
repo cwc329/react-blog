@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { login } from '../WebAPI';
+import { useHistory } from 'react-router-dom';
+import { register } from '../WebAPI';
 import useInput from '../useInput';
 import Input from '../components/Input';
-import { useHistory } from 'react-router-dom';
 
 export default function Login() {
   
@@ -28,6 +28,15 @@ export default function Login() {
         title: '帳號'
       },
       {
+        attributes: {
+          type: 'text',
+          name: 'nickname',
+          value: '',
+          required: true
+        },
+        title: '暱稱'
+      },
+      {
         attributes:
         {
           type: 'password',
@@ -42,7 +51,7 @@ export default function Login() {
         {
           type: 'submit',
           name: 'submit',
-          value: '登入'
+          value: '註冊'
         },
         title: ''
       },
@@ -51,19 +60,19 @@ export default function Login() {
   }, [setInputs])
 
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    const filters = ['username', 'password'];
-    const loginInformation = {};
+    const filters = ['username', 'password', 'nickname'];
+    const registerInformation = {};
     inputs.forEach(input => {
       for (const filter of filters) {
         if (filter === input.attributes.name) {
-          loginInformation[filter] = input.attributes.value
+          registerInformation[filter] = input.attributes.value
         }
       }
     })
     try {
-      const response = await login(loginInformation);
+      const response = await register(registerInformation);
       if (response.ok !== 1) {
         setErrorMessage(response.message);
         return;
@@ -77,7 +86,7 @@ export default function Login() {
 
   return (
     <div>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleRegister}>
         {inputs.map(input => {
           return (
             <Input key={input.attributes.name} input={input} handleChange={handleChange} handleValidationCheck={handleValidationCheck} />

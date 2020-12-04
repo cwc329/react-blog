@@ -43,8 +43,23 @@ export default function Navbar() {
           </StyledLink>
         </NavListItem>
         <NavListItem>
+          <StyledLink to="/addpost">
+            新增文章
+          </StyledLink>
+        </NavListItem>
+        <NavListItem>
+          <StyledLink to="/logout">
+            登出
+          </StyledLink>
+        </NavListItem>
+        <NavListItem>
           <StyledLink to="/login">
             登入
+          </StyledLink>
+        </NavListItem>
+        <NavListItem>
+          <StyledLink to="/register">
+            註冊
           </StyledLink>
         </NavListItem>
       </NavList>

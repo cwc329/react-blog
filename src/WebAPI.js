@@ -48,7 +48,7 @@ async function login({ username, password }) {
 
 async function getUserdata({ token }) {
   if (!token) {
-    return;
+    return {};
   };
   const requestUrl = `${apiEndpoint}/me`;
   const headers = {
@@ -59,9 +59,28 @@ async function getUserdata({ token }) {
   return data;
 }
 
+async function register({ username, password, nickname }) {
+  const requestUrl = `${apiEndpoint}/register`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      username,
+      password,
+      nickname
+    })
+  };
+  const response = await fetch(requestUrl, options);
+  const result = await response.json();
+  return result;
+}
+
 export {
   getPosts,
   addPost,
   login,
   getUserdata,
+  register
 }

@@ -8,28 +8,19 @@ import {
   useLocation
 } from 'react-router-dom'
 import { getPosts } from '../WebAPI';
+import PostsList from '../components/PostsList';
+import SinglePost from '../components/SinglePost'
 
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
-export default function PostsRouter() {
-  let { url, path } = useRouteMatch();
-  let query = useQuery();
-  let page = query.get('page');
-  console.log({ page, url, path });
-  const [posts, setPosts] = useState();
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
+export default function Posts() {
+  let { path } = useRouteMatch();
+  
   return (
     <Switch>
       <Route exact path={path}>
-        Posts root
+        <PostsList />
       </Route>
       <Route path={`${path}/:id`}>
-        Posts params
+        <SinglePost />
       </Route>
     </Switch>
   )
