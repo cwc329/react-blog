@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPosts } from '../WebAPI';
-import { useQuery, timeStampConvert } from '../utils';
+import { timeStampConvert } from '../utils';
+import Pagination from '../components/Pagination';
+
 
 const PostTitleLink = styled(Link)`
   text-decoration: none;
@@ -10,19 +12,27 @@ const PostTitleLink = styled(Link)`
 `
 
 
-export default function PostsList() {
+export default function PostsList({ page }) {
   const [posts, setPosts] = useState([]);
-  let query = useQuery();
+  const [totalPages, setTotalpages] = useState();
+  
   useEffect(() => {
-    let page = query.get('page') || 1;
     const querystrings = {
       page,
       sort: 'createdAt',
       order: 'desc',
       limit: 5
     }
-    getPosts({ querystrings }).then(data => setPosts(data))
-  }, [])
+    getPosts({ querystrings })
+      .then(res => {
+        setTotalpages(Math.ceil(Number(res.headers.get('X-Total-Count')) / 5));
+        return res.json()
+      })
+      .then(json => {
+        setPosts(json);
+      })
+  }, [page]);
+
   return (
     <div>
       {posts.map(post => {
@@ -33,6 +43,7 @@ export default function PostsList() {
           </div>
         )
       })}
+      <Pagination currentPage={page} totalPages={totalPages} />
     </div>
   )
 }

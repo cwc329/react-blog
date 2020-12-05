@@ -11,8 +11,7 @@ async function getPosts({ id, querystrings }) {
   }
   requestUrl = requestUrl.slice(0, requestUrl.length - 1);
   const response = await fetch(requestUrl)
-  const data = await response.json();
-  return data;
+  return response;
 }
 
 async function addPost({ data, token }) {

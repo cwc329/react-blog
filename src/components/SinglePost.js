@@ -6,9 +6,10 @@ import { timeStampConvert } from '../utils';
 export default function SinglePost() {
   const [post, setPost] = useState({});
   const { id } = useParams();
-  console.log({ id });
   useEffect(() => {
-    getPosts({ id }).then(data => {setPost(data)});
+    getPosts({ id })
+      .then(response => response.json())
+      .then(data => { setPost(data) });
   }, [])
   return (
     <div>
