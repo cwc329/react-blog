@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { register } from '../WebAPI';
+import { getUserData, register } from '../WebAPI';
 import { UserContext } from '../context';
 import useInput from '../useInput';
 import Input from '../components/Input';
@@ -80,11 +80,16 @@ export default function Register() {
     })
     try {
       const response = await register(registerInformation);
-      if (response.ok !== 1) {
+      const { ok, token } = response;
+      if (ok !== 1) {
         setErrorMessage(response.message);
         return;
       }
       window.localStorage.setItem('token', response.token);
+      getUserData({ token })
+        .then(data => {
+          setUser(data);
+        })
       history.push('/');
     } catch (error) {
       alert(error);

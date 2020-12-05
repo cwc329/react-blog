@@ -15,12 +15,19 @@ export default function Input({ input, handleChange, handleValidationCheck }) {
         {input.title ? <h3>{input.title}</h3> : ''}
       </label>
       <div>
-        <input
-          {...attributes}
-          onChange={handleValueChange}
-          onBlur={handleValidation}
-          onInvalid={handleValidation}
-        />
+        {input.attributes.type !== 'textarea'
+          ? <input
+            {...attributes}
+            onChange={handleValueChange}
+            onBlur={handleValidation}
+            onInvalid={handleValidation} />
+          : <textarea
+            {...attributes}
+            onChange={handleValueChange}
+            onBlur={handleValidation}
+            onInvalid={handleValidation}>
+            </textarea>
+          }
       </div>
     </div>
   )

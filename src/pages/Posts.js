@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import {
   Switch,
   Route,
-  useParams,
   useRouteMatch,
-  useLocation
 } from 'react-router-dom'
 import { useQuery } from '../utils';
 import PostsList from '../components/PostsList';
@@ -14,7 +12,6 @@ import SinglePost from '../components/SinglePost'
 export default function Posts() {
   const { path } = useRouteMatch();
   const query = useQuery();
-  //const page = ;
   
   return (
     <Switch>

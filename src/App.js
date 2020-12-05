@@ -10,6 +10,7 @@ import Posts from './pages/Posts';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import AddPost from './pages/AddPost';
 import { getUserData } from './WebAPI';
 import { UserContext } from './context';
 
@@ -20,7 +21,6 @@ function App() {
     const token = window.localStorage.getItem('token');
     getUserData({ token })
       .then(data => {
-        console.log(data);
         if (data.ok !== 1) {
           window.localStorage.setItem('token', '');
           setUser(null);
@@ -50,11 +50,10 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="addPost">
-
+          <Route path="/addPost">
+            <AddPost />
           </Route>
         </Switch>
-        {console.log(user)}
       </Router>
     </UserContext.Provider>
   );

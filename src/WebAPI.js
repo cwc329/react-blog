@@ -14,12 +14,13 @@ async function getPosts({ id, querystrings }) {
   return response;
 }
 
-async function addPost({ data, token }) {
+async function addPost({token, data}) {
   const requestUrl = `${apiEndpoint}/posts`;
   const options = {
     method: 'POST',
     headers: {
-      'authorization': `Bearer ${token}`
+      'authorization': `Bearer ${token}`,
+      'content-type': 'application/json'
     },
     body: JSON.stringify(data),
   }

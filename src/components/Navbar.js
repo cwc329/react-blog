@@ -52,7 +52,6 @@ export default function Navbar() {
       </h1>
       <NavList>
         <NavListItem>
-          {console.log(user)}
           <span><b>{user ? user.data.nickname : ''}</b></span>
         </NavListItem>
         <NavListItem>
