@@ -1,5 +1,7 @@
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { UserContext } from '../context';
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -29,6 +31,18 @@ const NavListItem = styled.li`
 `
 
 export default function Navbar() {
+  const history = useHistory();
+  
+  const handleLogOut = () => {
+    window.localStorage.removeItem('token');
+    setUser(null);
+    if (history[history.length - 1] !== '/') {
+      history.push('/');
+    }
+  }
+
+  const {user, setUser} = useContext(UserContext);
+
   return (
     <Nav>
       <h1>
@@ -38,30 +52,35 @@ export default function Navbar() {
       </h1>
       <NavList>
         <NavListItem>
+          {console.log(user)}
+          <span><b>{user ? user.data.nickname : ''}</b></span>
+        </NavListItem>
+        <NavListItem>
           <StyledLink to="/posts">
             文章列表
           </StyledLink>
         </NavListItem>
-        <NavListItem>
+        
+        { user && <NavListItem>
           <StyledLink to="/addpost">
             新增文章
           </StyledLink>
-        </NavListItem>
-        <NavListItem>
-          <StyledLink to="/logout">
+        </NavListItem>}
+        { user && <NavListItem>
+          <StyledLink to="/" onClick={handleLogOut}>
             登出
           </StyledLink>
-        </NavListItem>
-        <NavListItem>
+        </NavListItem>}
+        {!user && <NavListItem>
           <StyledLink to="/login">
             登入
           </StyledLink>
-        </NavListItem>
-        <NavListItem>
+        </NavListItem>}
+        {!user && <NavListItem>
           <StyledLink to="/register">
             註冊
           </StyledLink>
-        </NavListItem>
+        </NavListItem>}
       </NavList>
     </Nav>
   )

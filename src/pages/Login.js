@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
-import { login } from '../WebAPI';
+import { useEffect, useContext } from 'react';
+import { login, getUserData } from '../WebAPI';
+import { useHistory } from 'react-router-dom';
 import useInput from '../useInput';
 import Input from '../components/Input';
-import { useHistory } from 'react-router-dom';
+import { UserContext } from '../context';
 
 export default function Login() {
   
@@ -15,6 +16,7 @@ export default function Login() {
     handleValidationCheck
   } = useInput();
   const history = useHistory();
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const formInputs = [
@@ -48,8 +50,13 @@ export default function Login() {
       },
     ]
     setInputs(formInputs);
-  }, [setInputs])
+  }, [setInputs]);
 
+  useEffect(() => {
+    if (user) {
+      history.push('/');
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -64,11 +71,17 @@ export default function Login() {
     })
     try {
       const response = await login(loginInformation);
-      if (response.ok !== 1) {
-        setErrorMessage(response.message);
+      const { ok, message, token } = response;
+      if (ok !== 1) {
+        setErrorMessage(message);
         return;
       }
-      window.localStorage.setItem('token', response.token);
+      window.localStorage.removeItem('token');
+      window.localStorage.setItem('token', token);
+      getUserData({ token })
+        .then(data => {
+          setUser(data);
+        });
       history.push('/');
     } catch (error) {
       alert(error);

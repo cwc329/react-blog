@@ -14,21 +14,16 @@ import SinglePost from '../components/SinglePost'
 export default function Posts() {
   const { path } = useRouteMatch();
   const query = useQuery();
-  //const [page, setPage] = useState();
-  const page = Number(query.get('page')) || 1;
-  /*
-  useEffect(() => {
-    setPage(Number(query.get('page')) || 1);
-  }, [page, query])
-  */
+  //const page = ;
+  
   return (
-      <Switch>
-        <Route exact path={path}>
-          <PostsList page={page} />
-        </Route>
-        <Route path={`${path}/:id`}>
-          <SinglePost />
-        </Route>
-      </Switch>
+    <Switch>
+      <Route exact path={path}>
+        <PostsList page={Number(query.get('page')) || 1} />
+      </Route>
+      <Route path={`${path}/:id`}>
+        <SinglePost />
+      </Route>
+    </Switch>
   )
 }

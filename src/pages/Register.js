@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { register } from '../WebAPI';
+import { UserContext } from '../context';
 import useInput from '../useInput';
 import Input from '../components/Input';
 
-export default function Login() {
+export default function Register() {
   
   const {
     errorMessage,
@@ -15,6 +16,7 @@ export default function Login() {
     handleValidationCheck
   } = useInput();
   const history = useHistory();
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const formInputs = [
@@ -57,8 +59,13 @@ export default function Login() {
       },
     ]
     setInputs(formInputs);
-  }, [setInputs])
+  }, [setInputs]);
 
+  useEffect(() => {
+    if (user) {
+      history.push('/');
+    }
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();

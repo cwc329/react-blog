@@ -45,7 +45,7 @@ async function login({ username, password }) {
   return result;
 }
 
-async function getUserdata({ token }) {
+async function getUserData({ token }) {
   if (!token) {
     return {};
   };
@@ -80,6 +80,6 @@ export {
   getPosts,
   addPost,
   login,
-  getUserdata,
+  getUserData,
   register
 }
