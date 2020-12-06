@@ -5,12 +5,25 @@ import { getPosts } from '../WebAPI';
 import { timeStampConvert } from '../utils';
 import Pagination from '../components/Pagination';
 
+const StyledPostsList = styled.div`
+  width: 900px;
+  margin: 0 auto;
+`
+
+const StyledPostCard = styled.div`
+  border: 1.5px solid black;
+  border-radius: 4px;
+  padding: 0 10px;
+
+  & ~ & {
+    margin-top: 5px;
+  }
+`
 
 const PostTitleLink = styled(Link)`
   text-decoration: none;
   color: blue;
 `
-
 
 export default function PostsList({ page }) {
   const [posts, setPosts] = useState([]);
@@ -34,16 +47,16 @@ export default function PostsList({ page }) {
   }, [page]);
 
   return (
-    <div>
+    <StyledPostsList>
       {posts.map(post => {
         return (
-          <div key={post.id}>
-            <PostTitleLink to={`posts/${post.id}`}><h1 key={post.id}>{post.title}</h1></PostTitleLink>
+          <StyledPostCard key={post.id}>
+            <h1><PostTitleLink to={`posts/${post.id}`}>{post.title}</PostTitleLink></h1>
             <h4>{timeStampConvert(post.createdAt)}</h4>
-          </div>
+          </StyledPostCard>
         )
       })}
       <Pagination currentPage={page} totalPages={totalPages} />
-    </div>
+    </StyledPostsList>
   )
 }

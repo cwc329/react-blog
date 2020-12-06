@@ -1,9 +1,19 @@
 import { useEffect, useContext } from 'react';
 import { login, getUserData } from '../WebAPI';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import useInput from '../useInput';
 import Input from '../components/Input';
 import { UserContext } from '../context';
+
+const StyledForm = styled.form`
+  margin: 0 auto;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
 export default function Login() {
   
@@ -90,13 +100,13 @@ export default function Login() {
 
   return (
     <div>
-      <form onSubmit={handleLogin}>
+      <StyledForm onSubmit={handleLogin}>
         {inputs.map(input => {
           return (
             <Input key={input.attributes.name} input={input} handleChange={handleChange} handleValidationCheck={handleValidationCheck} />
           )
         })}
-      </form>
+      </StyledForm>
       <div><p>{errorMessage}</p></div>
     </div>
   )

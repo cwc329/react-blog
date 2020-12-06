@@ -1,9 +1,19 @@
 import { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import { getUserData, register } from '../WebAPI';
 import { UserContext } from '../context';
 import useInput from '../useInput';
 import Input from '../components/Input';
+
+const StyledForm = styled.form`
+  margin: 0 auto;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
 export default function Register() {
   
@@ -98,13 +108,13 @@ export default function Register() {
 
   return (
     <div>
-      <form onSubmit={handleRegister}>
+      <StyledForm onSubmit={handleRegister}>
         {inputs.map(input => {
           return (
             <Input key={input.attributes.name} input={input} handleChange={handleChange} handleValidationCheck={handleValidationCheck} />
           )
         })}
-      </form>
+      </StyledForm>
       <div><p>{errorMessage}</p></div>
     </div>
   )

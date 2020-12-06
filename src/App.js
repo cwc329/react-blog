@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import styled from 'styled-components'
 import './App.css';
 import Navbar from './components/Navbar'
 import Posts from './pages/Posts';
@@ -13,6 +14,13 @@ import Home from './pages/Home';
 import AddPost from './pages/AddPost';
 import { getUserData } from './WebAPI';
 import { UserContext } from './context';
+
+const AppWrapper = styled.div`
+  max-width: 1920px;
+  margin: 0 auto;
+
+
+`
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,28 +42,30 @@ function App() {
   }, [user])
 
   return (
-    <UserContext.Provider value={{user, setUser}}>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/posts">
-            <Posts />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/addPost">
-            <AddPost />
-          </Route>
-        </Switch>
-      </Router>
-    </UserContext.Provider>
+    <AppWrapper>
+      <UserContext.Provider value={{ user, setUser }}>
+        <Router>
+          <Navbar />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/posts">
+              <Posts />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/addPost">
+              <AddPost />
+            </Route>
+          </Switch>
+        </Router>
+      </UserContext.Provider>
+    </AppWrapper>
   );
 }
 

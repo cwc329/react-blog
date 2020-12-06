@@ -1,4 +1,3 @@
-import { useState, useEffect, createContext } from 'react';
 import styled from 'styled-components';
 import {
   Switch,

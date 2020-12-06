@@ -1,21 +1,12 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom'
 import { UserContext } from '../context';
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-
-  &:hover {
-    color: white;
-    background: black;
-  }
-`
-
 const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
+  margin: 15px;
 `
 
 const NavList = styled.ul`
@@ -28,6 +19,20 @@ const NavListItem = styled.li`
   & ~ & {
     margin-left: 10px;
   }
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: white;
+    background: black;
+  }
+`
+
+const StyledGreeting = styled.span`
+  font-weight: bold;
 `
 
 export default function Navbar() {
@@ -52,7 +57,7 @@ export default function Navbar() {
       </h1>
       <NavList>
         <NavListItem>
-          <span><b>{user ? user.data.nickname : ''}</b></span>
+          <StyledGreeting> {user ? `Hi~ ${user.data.nickname}` : ''}</StyledGreeting>
         </NavListItem>
         <NavListItem>
           <StyledLink to="/posts">

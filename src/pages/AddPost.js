@@ -1,8 +1,18 @@
 import { useEffect } from 'react';
+import styled from 'styled-components';
 import { addPost } from '../WebAPI';
 import useInput from '../useInput';
 import useAuthorization from '../useAuthorization';
 import Input from '../components/Input';
+
+const StyledForm = styled.form`
+  margin: 0 auto;
+  width: 900px;
+`
+
+const StyledInput = styled(Input)`
+  width: 900px;
+`
 
 export default function AddPost() {
   const { history } = useAuthorization();
@@ -67,13 +77,18 @@ export default function AddPost() {
 
   return (
     <div>
-      <form onSubmit={handleAddPost}>
+      <StyledForm onSubmit={handleAddPost}>
         {inputs.map(input => {
           return (
-            <Input key={input.attributes.name} input={input} handleChange={handleChange} handleValidationCheck={handleValidationCheck} />
+            <StyledInput
+              key={input.attributes.name}
+              input={input}
+              handleChange={handleChange}
+              handleValidationCheck={handleValidationCheck}
+            />
           )
         })}
-      </form>
+      </StyledForm>
       <div><p>{errorMessage}</p></div>
     </div>
   )
