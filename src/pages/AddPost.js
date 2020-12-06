@@ -18,7 +18,6 @@ export default function AddPost() {
   const { history } = useAuthorization();
   const {
     errorMessage,
-    setErrorMessage,
     inputs,
     setInputs,
     handleChange,
