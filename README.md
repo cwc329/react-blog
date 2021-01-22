@@ -1,6 +1,6 @@
 # Lidemy react.js demo - blog
 ---
-
+[demo](http://cwc329.tw/react-blog)
 ## 內容
 本專案以 react.js 創建一個 blog 前端頁面，後端則串接 Lidemy 課程提供的練習用 API。
 
